@@ -1,27 +1,33 @@
 import { RequestHandler } from "express";
 import { User } from "../../types/user.types";
 import usersService from "../../services/users";
-import { ErrorResponse } from "../controllers.types";
-import { PostUserResponse } from "./users.controller.types";
+import { GetUserResponse, PostUserResponse } from "./users.controller.types";
 
-const postUser: RequestHandler<
-  any,
-  PostUserResponse | ErrorResponse,
-  User
-> = async (req, res, next) => {
+const postUser: RequestHandler<any, PostUserResponse, User> = async (
+  req,
+  res,
+  next
+) => {
   const user = req.body;
 
-  try {
-    const addedUser = await usersService.addUser(user);
-    res.status(201).send({ id: addedUser.id });
-    next();
-  } catch (error: any) {
-    res.status(error.code || 500).send({ error: error.message }) && next(error);
-  }
+  const addedUser = await usersService.addUser(user);
+  res.status(201).send({ id: addedUser.id });
+  next();
+};
+
+const getUser: RequestHandler<{ id: string }, GetUserResponse> = async (
+  req,
+  res,
+  next
+) => {
+  const user = await usersService.findUserById(req.params.id);
+  res.status(201).send(user);
+  next();
 };
 
 const usersController = {
   postUser,
+  getUser,
 };
 
 export default usersController;

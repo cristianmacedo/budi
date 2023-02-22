@@ -5,6 +5,8 @@ import bodyParser from "body-parser";
 
 import userRouter from "./routes/users";
 import authRouter from "./routes/auth";
+import contactsRouter from "./routes/contacts";
+import errorMiddleware from "./middlewares/error.middleware";
 
 dotenv.config();
 
@@ -36,6 +38,9 @@ app.use(bodyParser.json());
 
 app.use("/users", userRouter);
 app.use("/auth", authRouter);
+app.use("/contacts", contactsRouter);
+
+app.use(errorMiddleware);
 
 app.listen(port, () => {
   console.log(`${logTag} Listening on port ${port}`);

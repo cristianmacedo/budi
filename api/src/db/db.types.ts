@@ -1,7 +1,3 @@
-import { Document, ObjectId } from "mongoose";
+import { Document, Types } from "mongoose";
 
-export type MongoDocument<T> = Document &
-  T & {
-    createdAt: Date;
-    updatedAt: Date;
-  };
+export type MongoDocument<T> = Document & T;
