@@ -13,8 +13,9 @@ const userSchema: Joi.ObjectSchema<User> = Joi.object().keys({
     .max(64)
     .regex(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,24}$/
-    ),
-  icon: Joi.string().default("https://via.placeholder.com/150").uri(),
+    )
+    .required(),
+  icon: Joi.string().uri(),
 });
 
 export default userSchema;

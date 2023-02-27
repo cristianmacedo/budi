@@ -6,12 +6,12 @@ import serializeUser from "./users.serialize";
 import { UserDocument } from "./users.types";
 
 async function addUser(newUser: UserType) {
-  const user = await await UserModel.create(newUser);
+  const user = await UserModel.create(newUser);
   return serializeUser(user);
 }
 
 async function listUsers() {
-  const users = await UserModel.find({}).populate("contacts");
+  const users = await UserModel.find({});
   return serializeUser(users);
 }
 
@@ -19,7 +19,7 @@ async function findUsersBy(prop: keyof UserType | "id" | "_id", val: string) {
   if (prop === "id") {
     prop = "_id";
   }
-  const users = await UserModel.find({ [prop]: val }).populate("contacts");
+  const users = await UserModel.find({ [prop]: val });
   return serializeUser(users);
 }
 
@@ -27,32 +27,12 @@ async function findUser(prop: keyof UserType | "id" | "_id", val: string) {
   if (prop === "id") {
     prop = "_id";
   }
-  const users = await UserModel.find({ [prop]: val }).populate("contacts");
+  const users = await UserModel.find({ [prop]: val });
   return serializeUser(users[0]);
 }
 
 async function deleteUser(id: string) {
-  const user = await (
-    (await UserModel.findByIdAndDelete(id)) as UserDocument
-  ).populate("contacts");
-  return serializeUser(user);
-}
-
-async function addContactIdToUser(userId: string, contactId: string) {
-  const user = await (
-    (await UserModel.findByIdAndUpdate(userId, {
-      $addToSet: { contacts: contactId },
-    })) as UserDocument
-  ).populate("contacts");
-  return serializeUser(user);
-}
-
-async function removeContactIdFromUser(userId: string, contactId: string) {
-  const user = await (
-    (await UserModel.findByIdAndUpdate(userId, {
-      $pull: { contacts: contactId },
-    })) as UserDocument
-  ).populate("contacts");
+  const user = (await UserModel.findByIdAndDelete(id)) as UserDocument;
   return serializeUser(user);
 }
 
@@ -62,8 +42,6 @@ const usersDb = {
   findUsersBy,
   findUser,
   deleteUser,
-  addContactIdToUser,
-  removeContactIdFromUser,
 };
 
 export default usersDb;

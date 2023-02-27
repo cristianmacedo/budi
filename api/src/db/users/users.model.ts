@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
+import { UserType } from "../../types/user.types";
 const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
+    type: { type: String, enum: Object.values(UserType), required: true },
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    icon: { type: String, required: true },
-    contacts: [{ type: Schema.Types.ObjectId, ref: "Contact" }],
-    transactions: [{ type: Schema.Types.ObjectId, ref: "Transaction" }],
+    icon: { type: String },
   },
   {
     timestamps: true,

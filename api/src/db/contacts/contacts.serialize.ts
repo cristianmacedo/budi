@@ -1,8 +1,9 @@
-import { Contact } from "../../types/contact.types";
+import { Types } from "mongoose";
+import { Contact, SerializedContact } from "../../types/contact.types";
 import { ContactDocument } from "./contacts.types";
 
-const serializeSingle = (contact: ContactDocument) => {
-  const contactObj = contact.toObject<Contact>();
+const serializeSingle = (contact: ContactDocument): SerializedContact => {
+  const contactObj = contact.toObject<SerializedContact>();
 
   return {
     id: contactObj._id.toString(),
@@ -10,20 +11,23 @@ const serializeSingle = (contact: ContactDocument) => {
     icon: contactObj.icon,
     identity: contactObj.identity,
     name: contactObj.name,
+    user: contactObj.user,
+    createdAt: contactObj.createdAt,
+    updatedAt: contactObj.updatedAt,
   };
 };
 
 function serializeContact(data: null): null;
-function serializeContact(data: ContactDocument[]): ContactDocument[];
-function serializeContact(data: ContactDocument): ContactDocument;
+function serializeContact(data: ContactDocument[]): SerializedContact[];
+function serializeContact(data: ContactDocument): SerializedContact;
 function serializeContact(data: null | ContactDocument | ContactDocument[]) {
   if (data === null || !data) {
     return null;
   }
   if (Array.isArray(data)) {
-    return data.map(serializeSingle) as ContactDocument[];
+    return data.map(serializeSingle);
   }
-  return serializeSingle(data) as ContactDocument;
+  return serializeSingle(data);
 }
 
 export default serializeContact;

@@ -4,9 +4,10 @@ const { Schema } = mongoose;
 const contactSchema = new Schema(
   {
     name: { type: String, required: true },
-    identity: { type: String, required: true },
+    identity: { type: String },
     description: { type: String },
-    icon: { type: String, required: true },
+    user: { type: Schema.Types.ObjectId, required: true },
+    icon: { type: String },
   },
   {
     timestamps: true,

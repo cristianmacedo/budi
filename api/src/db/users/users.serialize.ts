@@ -6,12 +6,11 @@ const serializeSingle = (user: UserDocument): SerializedUser => {
 
   return {
     id: userObj._id.toString(),
+    type: userObj.type,
     name: userObj.name,
     email: userObj.email,
     icon: userObj.icon,
     password: userObj.password,
-    contacts: userObj.contacts,
-    transactions: userObj.transactions,
     createdAt: userObj.createdAt,
     updatedAt: userObj.updatedAt,
   };
@@ -25,9 +24,9 @@ function serializeUser(data: null | UserDocument | UserDocument[]) {
     return null;
   }
   if (Array.isArray(data)) {
-    return data.map(serializeSingle) as User[];
+    return data.map(serializeSingle);
   }
-  return serializeSingle(data) as User;
+  return serializeSingle(data);
 }
 
 export default serializeUser;

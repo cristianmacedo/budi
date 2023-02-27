@@ -1,5 +1,5 @@
 import usersDb from "../db/users/users.db";
-import { User } from "../types/user.types";
+import { User, UserType } from "../types/user.types";
 import HttpError from "../utils/HttpError";
 import passwordUtils from "../utils/password";
 import userValidator from "../validators/user.validator";
@@ -16,22 +16,16 @@ async function addUser(user: User) {
     throw new HttpError(409, "email-already-registered");
 
   const hashedPassword = passwordUtils.hashPassword(user.password);
-  const icon = user.icon || "https://via.placeholder.com/150";
 
   const newUser: User = {
+    type: UserType.COMMON,
     name: user.name,
     email: user.email,
+    icon: user.icon,
     password: hashedPassword,
-    transactions: [],
-    contacts: [],
-    icon,
   };
 
   return await usersDb.addUser(newUser);
-}
-
-async function addContactIdToUser(userId: string, contactId: string) {
-  return await usersDb.addContactIdToUser(userId, contactId);
 }
 
 async function findUserById(id: string) {
@@ -40,7 +34,6 @@ async function findUserById(id: string) {
 
 const usersService = {
   addUser,
-  addContactIdToUser,
   findUserById,
 };
 
