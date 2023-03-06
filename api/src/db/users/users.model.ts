@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import { UserType } from "../../types/user.types";
+import { User, UserType } from "../../types/user.types";
 const { Schema } = mongoose;
 
-const userSchema = new Schema(
+const userSchema = new Schema<User>(
   {
     type: { type: String, enum: Object.values(UserType), required: true },
     name: { type: String, required: true },

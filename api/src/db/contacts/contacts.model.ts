@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import { Contact } from "../../types/contact.types";
 const { Schema } = mongoose;
 
-const contactSchema = new Schema(
+const contactSchema = new Schema<Contact>(
   {
     name: { type: String, required: true },
     identity: { type: String },

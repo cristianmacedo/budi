@@ -21,7 +21,7 @@ const getUser: RequestHandler<{ id: string }, GetUserResponse> = async (
   next
 ) => {
   const user = await usersService.findUserById(req.params.id);
-  res.status(201).send(user);
+  res.status(200).send(user);
   next();
 };
 

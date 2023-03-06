@@ -27,7 +27,7 @@ const getContacts: RequestHandler<any, GetContactsResponse> = async (
 ) => {
   const userId = (req as AuthRequest).user.id;
   const contacts = await contactsService.findContactsByUserId(userId);
-  res.status(201).send(contacts);
+  res.status(200).send(contacts);
   next();
 };
 
