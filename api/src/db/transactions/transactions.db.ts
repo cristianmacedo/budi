@@ -1,4 +1,7 @@
-import { Transaction as TransactionType } from "../../types/transaction.types";
+import {
+  Transaction,
+  Transaction as TransactionType,
+} from "../../types/transaction.types";
 
 import TransactionModel from "./transactions.model";
 import serializeTransaction from "./transactions.serialize";
@@ -43,12 +46,21 @@ async function deleteTransaction(id: string) {
   return serializeTransaction(transaction);
 }
 
+async function updateTransaction(id: string, newTransaction: Transaction) {
+  const contact = (await TransactionModel.findByIdAndUpdate(
+    id,
+    newTransaction
+  )) as TransactionDocument;
+  return serializeTransaction(contact);
+}
+
 const transactionsDb = {
   addTransaction,
   listTransactions,
   findTransactionsBy,
   findTransaction,
   deleteTransaction,
+  updateTransaction,
 };
 
 export default transactionsDb;

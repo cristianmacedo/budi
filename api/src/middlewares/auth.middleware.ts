@@ -7,7 +7,7 @@ export interface AuthRequest extends Request {
   user: SerializedUser;
 }
 
-const authMiddleware: RequestHandler = async (req, _res, next) => {
+const authMiddleware: RequestHandler<any> = async (req, _res, next) => {
   const userId = req.headers.authorization;
 
   if (!userId) throw new HttpError(401, "not-authenticated");

@@ -4,4 +4,8 @@ export interface PostTransactionResponse {
   id: string;
 }
 
+export interface PutTransactionParams {
+  id: string;
+}
+
 export type GetTransactionsResponse = SerializedTransaction[];

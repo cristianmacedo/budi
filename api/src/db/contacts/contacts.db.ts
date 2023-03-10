@@ -1,4 +1,4 @@
-import { Contact as ContactType } from "../../types/contact.types";
+import { Contact, Contact as ContactType } from "../../types/contact.types";
 
 import ContactModel from "./contacts.model";
 import serializeContact from "./contacts.serialize";
@@ -41,12 +41,21 @@ async function deleteContact(id: string) {
   return serializeContact(contact);
 }
 
+async function updateContact(id: string, newContact: Contact) {
+  const contact = (await ContactModel.findByIdAndUpdate(
+    id,
+    newContact
+  )) as ContactDocument;
+  return serializeContact(contact);
+}
+
 const contactsDb = {
   addContact,
   listContacts,
   findContactsBy,
   findContact,
   deleteContact,
+  updateContact,
 };
 
 export default contactsDb;

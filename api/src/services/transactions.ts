@@ -27,8 +27,23 @@ async function findTransactionsByUserId(userId: string) {
   return await transactionsDb.findTransactionsBy("user", userId);
 }
 
+async function updateTransaction(
+  transactionId: string,
+  newTransaction: Transaction
+) {
+  const { error: validationErrorMessage } =
+    transactionValidator(newTransaction);
+
+  if (validationErrorMessage) {
+    throw new HttpError(422, validationErrorMessage);
+  }
+
+  await transactionsDb.updateTransaction(transactionId, newTransaction);
+}
+
 const transactionsService = {
   addTransaction,
+  updateTransaction,
   findTransactionsByUserId,
 };
 

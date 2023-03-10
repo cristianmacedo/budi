@@ -10,6 +10,11 @@ transactionsRouter.post(
   authMiddleware,
   transactionsController.postTransaction
 );
+transactionsRouter.put(
+  "/:id",
+  authMiddleware,
+  transactionsController.putTransaction
+);
 transactionsRouter.get(
   "/",
   authMiddleware,

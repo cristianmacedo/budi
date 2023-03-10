@@ -4,6 +4,7 @@ import transactionsService from "../../services/transactions";
 import {
   GetTransactionsResponse,
   PostTransactionResponse,
+  PutTransactionParams,
 } from "./transactions.controller.types";
 import { AuthRequest } from "../../middlewares/auth.middleware";
 
@@ -36,9 +37,23 @@ const getTransactions: RequestHandler<any, GetTransactionsResponse> = async (
   next();
 };
 
+const putTransaction: RequestHandler<
+  PutTransactionParams,
+  any,
+  Transaction
+> = async (req, res, next) => {
+  const transaction = req.body;
+  const transactionId = req.params.id;
+
+  await transactionsService.updateTransaction(transactionId, transaction);
+  res.status(200).send();
+  next();
+};
+
 const transactionsController = {
   postTransaction,
   getTransactions,
+  putTransaction,
 };
 
 export default transactionsController;
