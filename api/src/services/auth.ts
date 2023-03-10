@@ -19,7 +19,7 @@ const login = async (auth: Auth) => {
   const match = passwordUtils.comparePassword(password, user.password);
 
   if (match) {
-    return "hello";
+    return user.id;
   }
 
   throw new HttpError(401, "invalid-email-or-password");

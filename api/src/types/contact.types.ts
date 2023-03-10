@@ -7,7 +7,6 @@ export interface Contact {
   identity?: string;
   description?: string;
   icon?: string;
-  user: string | Types.ObjectId | User;
 }
 
 export type SerializedContact = Contact & Serialized;

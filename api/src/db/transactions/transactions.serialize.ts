@@ -14,7 +14,7 @@ const serializeSingle = (
     contact: transactionObj.contact,
     user: transactionObj.user,
     type: transactionObj.type,
-    name: transactionObj.name,
+    description: transactionObj.description,
     date: transactionObj.date,
     value: transactionObj.value,
     createdAt: transactionObj.createdAt,

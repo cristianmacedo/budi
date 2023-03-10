@@ -11,15 +11,14 @@ const serializeSingle = (contact: ContactDocument): SerializedContact => {
     icon: contactObj.icon,
     identity: contactObj.identity,
     name: contactObj.name,
-    user: contactObj.user,
     createdAt: contactObj.createdAt,
     updatedAt: contactObj.updatedAt,
   };
 };
 
-function serializeContact(data: null): null;
 function serializeContact(data: ContactDocument[]): SerializedContact[];
 function serializeContact(data: ContactDocument): SerializedContact;
+function serializeContact(data: null): null;
 function serializeContact(data: null | ContactDocument | ContactDocument[]) {
   if (data === null || !data) {
     return null;

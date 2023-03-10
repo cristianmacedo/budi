@@ -7,7 +7,7 @@ const transactionSchema = new Schema<Transaction>(
     user: { type: Types.ObjectId, ref: "User" },
     contact: { type: Types.ObjectId, ref: "Contact" },
     date: { type: Date, required: true },
-    name: { type: String, required: true },
+    description: { type: String, required: true },
     type: {
       type: String,
       enum: Object.values(TransactionType),

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { User, UserType } from "../../types/user.types";
 const { Schema } = mongoose;
 
@@ -9,6 +9,7 @@ const userSchema = new Schema<User>(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     icon: { type: String },
+    contacts: [{ type: Types.ObjectId, ref: "Contact" }],
   },
   {
     timestamps: true,

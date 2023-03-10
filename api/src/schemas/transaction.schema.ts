@@ -6,7 +6,7 @@ const contactSchema: Joi.ObjectSchema<Transaction> = Joi.object().keys({
   type: Joi.string()
     .valid(...Object.values(TransactionType))
     .required(),
-  name: Joi.string().required(),
+  description: Joi.string().required(),
   value: Joi.number().required(),
   contact: Joi.string().required(),
 });

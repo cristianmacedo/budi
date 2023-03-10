@@ -15,7 +15,7 @@ async function addTransaction(transaction: Transaction, userId: string) {
     user: new Types.ObjectId(userId),
     contact: new Types.ObjectId(transaction.contact as string),
     date: new Date(transaction.date),
-    name: transaction.name,
+    description: transaction.description,
     type: transaction.type,
     value: transaction.value,
   };

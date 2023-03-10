@@ -10,7 +10,7 @@ export enum TransactionType {
 export interface Transaction {
   date: Date;
   type: TransactionType;
-  name: string;
+  description: string;
   value: number;
   user: string | Types.ObjectId | Contact;
   contact: string | Types.ObjectId | Contact;

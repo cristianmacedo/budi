@@ -17,15 +17,16 @@ async function addUser(user: User) {
 
   const hashedPassword = passwordUtils.hashPassword(user.password);
 
-  const newUser: User = {
+  const newUserProps: User = {
     type: UserType.COMMON,
     name: user.name,
     email: user.email,
     icon: user.icon,
     password: hashedPassword,
+    contacts: [],
   };
 
-  return await usersDb.addUser(newUser);
+  return await usersDb.addUser(newUserProps);
 }
 
 async function findUserById(id: string) {
