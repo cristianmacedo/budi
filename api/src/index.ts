@@ -10,6 +10,7 @@ import authRouter from "./routes/auth";
 import contactsRouter from "./routes/contacts";
 import errorMiddleware from "./middlewares/error.middleware";
 import transactionsRouter from "./routes/transactions";
+import dashboardRouter from "./routes/dashboard";
 
 dotenv.config();
 
@@ -43,6 +44,7 @@ app.use("/users", userRouter);
 app.use("/auth", authRouter);
 app.use("/contacts", contactsRouter);
 app.use("/transactions", transactionsRouter);
+app.use("/dashboard", dashboardRouter);
 
 app.use(errorMiddleware);
 

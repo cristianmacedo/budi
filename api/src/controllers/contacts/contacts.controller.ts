@@ -1,11 +1,11 @@
-import { RequestHandler } from "express";
+import { Request, RequestHandler } from "express";
 import { Contact } from "../../types/contact.types";
 import contactsService from "../../services/contacts";
 import {
   PostContactResponse,
   PutContactParams,
 } from "./contacts.controller.types";
-import { AuthRequest } from "../../middlewares/auth.middleware";
+import { Filters } from "../../types/filters.types";
 
 const postContact: RequestHandler<any, PostContactResponse, Contact> = async (
   req,
@@ -13,7 +13,7 @@ const postContact: RequestHandler<any, PostContactResponse, Contact> = async (
   next
 ) => {
   const contact = req.body;
-  const userId = (req as AuthRequest).user.id;
+  const userId = req.user.id;
 
   const addedContact = await contactsService.addContact(contact, userId);
   res.status(201).send({ id: addedContact.id });

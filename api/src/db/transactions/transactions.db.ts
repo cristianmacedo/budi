@@ -19,12 +19,28 @@ async function listTransactions() {
 
 async function findTransactionsBy(
   prop: keyof TransactionType | "id" | "_id",
-  val: string
+  val: string,
+  filters?: {
+    startDate: Date;
+    endDate: Date;
+  }
 ) {
   if (prop === "id") {
     prop = "_id";
   }
-  const transactions = await TransactionModel.find({ [prop]: val });
+
+  let query = {
+    [prop]: val,
+  } as any;
+
+  if (filters) {
+    query = {
+      ...query,
+      date: { $gte: filters?.startDate, $lte: filters?.endDate },
+    };
+  }
+
+  const transactions = await TransactionModel.find(query);
   return serializeTransaction(transactions);
 }
 
@@ -35,7 +51,9 @@ async function findTransaction(
   if (prop === "id") {
     prop = "_id";
   }
-  const transactions = await TransactionModel.find({ [prop]: val });
+  const transactions = await TransactionModel.find({
+    [prop]: val,
+  });
   return serializeTransaction(transactions[0]);
 }
 

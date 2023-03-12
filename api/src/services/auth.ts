@@ -14,7 +14,7 @@ const login = async (auth: Auth) => {
   const { email, password } = auth;
 
   const user = await usersDb.findUser("email", email);
-  if (!user) throw new HttpError(401, "invalid-email-or-password");
+  if (!user) throw new HttpError(401, "invalid-email");
 
   const match = passwordUtils.comparePassword(password, user.password);
 
@@ -22,7 +22,7 @@ const login = async (auth: Auth) => {
     return user.id;
   }
 
-  throw new HttpError(401, "invalid-email-or-password");
+  throw new HttpError(401, "invalid-password");
 };
 
 const authService = {

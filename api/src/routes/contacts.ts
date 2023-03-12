@@ -7,6 +7,10 @@ import authMiddleware from "../middlewares/auth.middleware";
 const contactsRouter = express.Router();
 
 contactsRouter.post("/", authMiddleware, contactsController.postContact);
-contactsRouter.put("/:id", authMiddleware, contactsController.putContact);
+contactsRouter.put<PutContactParams>(
+  "/:id",
+  authMiddleware,
+  contactsController.putContact
+);
 
 export default contactsRouter;

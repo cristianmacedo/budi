@@ -6,7 +6,6 @@ import {
   PostTransactionResponse,
   PutTransactionParams,
 } from "./transactions.controller.types";
-import { AuthRequest } from "../../middlewares/auth.middleware";
 
 const postTransaction: RequestHandler<
   any,
@@ -14,7 +13,7 @@ const postTransaction: RequestHandler<
   Transaction
 > = async (req, res, next) => {
   const transaction = req.body;
-  const userId = (req as AuthRequest).user.id;
+  const userId = req.user.id;
 
   const addedTransaction = await transactionsService.addTransaction(
     transaction,
@@ -29,7 +28,8 @@ const getTransactions: RequestHandler<any, GetTransactionsResponse> = async (
   res,
   next
 ) => {
-  const userId = (req as AuthRequest).user.id;
+  const userId = req.user.id;
+  console.log(userId);
   const transactions = await transactionsService.findTransactionsByUserId(
     userId
   );
