@@ -75,17 +75,23 @@ async function getDashboard(userId: string, filters?: Filters) {
   console.log({ lastPeriodStartDate, lastPeriodEndDate });
 
   return {
-    expenses: {
-      current: currentPeriodInsights.expenses,
-      last: lastPeriodInsights.expenses,
+    current: {
+      dateRange: {
+        startDate: currentPeriodStartDate,
+        endDate: currentPeriodEndDate,
+      },
+      expenses: currentPeriodInsights.expenses,
+      incomes: currentPeriodInsights.incomes,
+      balance: currentPeriodInsights.balance,
     },
-    incomes: {
-      current: currentPeriodInsights.incomes,
-      last: lastPeriodInsights.incomes,
-    },
-    balance: {
-      current: currentPeriodInsights.balance,
-      last: lastPeriodInsights.balance,
+    last: {
+      dateRange: {
+        startDate: lastPeriodStartDate,
+        endDate: lastPeriodEndDate,
+      },
+      expenses: lastPeriodInsights.expenses,
+      incomes: lastPeriodInsights.incomes,
+      balance: lastPeriodInsights.balance,
     },
   };
 }
