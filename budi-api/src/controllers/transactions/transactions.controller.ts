@@ -29,7 +29,6 @@ const getTransactions: RequestHandler<any, GetTransactionsResponse> = async (
   next
 ) => {
   const userId = req.user.id;
-  console.log(userId);
   const transactions = await transactionsService.findTransactionsByUserId(
     userId
   );
